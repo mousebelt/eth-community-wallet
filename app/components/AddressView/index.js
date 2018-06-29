@@ -26,9 +26,13 @@ function AddressView(props) {
     isComfirmed,
     addressMap, tokenDecimalsMap,
     onShowSendToken, onCheckBalances,
-    onGenerateAddress,
+    /**
+     * Please do not remove this comment.
+     * We only allow single address for single wallet for now.
+     * But do not remove this feaure
+     */
+    // onGenerateAddress, addressListLoading, addressListError, addressListMsg,
     networkReady, checkingBalanceDoneTime, checkingBalances, checkingBalancesError,
-    addressListLoading, addressListError, addressListMsg,
     exchangeRates, onSelectCurrency, convertTo,
     onGetExchangeRates,
     getExchangeRatesDoneTime, getExchangeRatesLoading, getExchangeRatesError,
@@ -52,10 +56,10 @@ function AddressView(props) {
     networkReady,
 
     isComfirmed,
-    onGenerateAddress,
-    addressListLoading,
-    addressListError,
-    addressListMsg,
+    // onGenerateAddress,
+    // addressListLoading,
+    // addressListError,
+    // addressListMsg,
 
     onGetExchangeRates,
     getExchangeRatesDoneTime,
@@ -117,10 +121,10 @@ AddressView.propTypes = {
   onShowSendToken: PropTypes.func,
   onShowTokenChooser: PropTypes.func,
 
-  onGenerateAddress: PropTypes.func,
-  addressListLoading: PropTypes.bool,
-  addressListError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
-  addressListMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  // onGenerateAddress: PropTypes.func,
+  // addressListLoading: PropTypes.bool,
+  // addressListError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+  // addressListMsg: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 
   onCheckBalances: PropTypes.func,
   networkReady: PropTypes.bool,

@@ -26,10 +26,10 @@ function AddressTableFooter(props) {
     onCheckBalances,
     networkReady,
 
-    isComfirmed,
-    onGenerateAddress,
-    addressListLoading,
-    addressListError,
+    // isComfirmed,
+    // onGenerateAddress,
+    // addressListLoading,
+    // addressListError,
 
     onGetExchangeRates,
     getExchangeRatesLoading,
@@ -40,7 +40,7 @@ function AddressTableFooter(props) {
 
   return (
     <Div>
-      <IconButton
+      {/* <IconButton
         text="Add address"
         icon="plus"
         onClick={onGenerateAddress}
@@ -48,6 +48,13 @@ function AddressTableFooter(props) {
         error={addressListError}
         disabled={!isComfirmed}
         popconfirmMsg={false}
+      /> */}
+      <IconButton
+        text="Select Tokens"
+        icon="bars"
+        onClick={onShowTokenChooser}
+        type="primary"
+        // onClick, loading, error, disabled, popconfirmMsg
       />
       <IconButton
         text="Check balances"
@@ -68,14 +75,6 @@ function AddressTableFooter(props) {
         popconfirmMsg="Refresh exchange rates?"
       />
       <br />
-      <IconButton
-        text="Select Tokens"
-        icon="bars"
-        onClick={onShowTokenChooser}
-        type="primary"
-        // onClick, loading, error, disabled, popconfirmMsg
-      />
-      <br /><br />
     </Div>
   );
 }
@@ -86,10 +85,10 @@ AddressTableFooter.propTypes = {
   checkingBalances: PropTypes.bool,
   checkingBalancesError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
 
-  isComfirmed: PropTypes.bool,
-  onGenerateAddress: PropTypes.func,
-  addressListLoading: PropTypes.bool,
-  addressListError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
+  // isComfirmed: PropTypes.bool,
+  // onGenerateAddress: PropTypes.func,
+  // addressListLoading: PropTypes.bool,
+  // addressListError: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.bool]),
 
   onGetExchangeRates: PropTypes.func,
   getExchangeRatesLoading: PropTypes.bool,
