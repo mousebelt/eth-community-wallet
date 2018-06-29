@@ -370,7 +370,10 @@ export function mapDispatchToProps(dispatch) {
     },
     onGenerateAddress: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(generateAddress());
+      /**
+       * Don't Allow create new Address
+       */
+      // dispatch(generateAddress());
     },
     onLoadNetwork: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
