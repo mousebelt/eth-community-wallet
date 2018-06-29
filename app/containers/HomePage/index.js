@@ -60,7 +60,7 @@ import {
   hideSendToken,
   showTokenChooser,
   hideTokenChooser,
-  generateAddress,
+  // generateAddress,
   lockWallet,
   unlockWallet,
   selectCurrency,
