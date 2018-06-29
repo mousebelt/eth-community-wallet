@@ -47,7 +47,8 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #222722;
   }
 
   body.fontLoaded {
@@ -60,10 +61,9 @@ injectGlobal`
     min-width: 100%;
   }
 
-  p,
-  label {
-    font-family: 'Space' Georgia, Times, 'Times New Roman', serif;
-    line-height: 1.5em;
+  h1, h2, h3, h4, h5, h6, p, span, a {
+    font-family: 'Space Mono', monospace;
+    margin: 0px;
   }
 
   body {

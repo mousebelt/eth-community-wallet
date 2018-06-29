@@ -6,8 +6,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { website } from 'utils/constants';
-import walletLogo from './hot-wallet.svg';
+// import { website } from 'utils/constants';
+import walletLogo from './nrl-wallet.png';
 
 const Div = styled.div`
   height: 80px;
@@ -26,9 +26,9 @@ function Logo() {
   return (
     <Div>
       <Img alt="logo" src={walletLogo} />
-      <a href={website}>
+      <span>
         ETH Hot Wallet
-      </a>
+      </span>
     </Div>
   );
 }
