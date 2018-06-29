@@ -18,7 +18,7 @@ const { Column } = Table;
 // import messages from './messages';
 
 const AddrTable = styled(Table) `
-  max-width: 860px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   tbody{
@@ -175,7 +175,7 @@ function AddressTable(props) {
     <AddrTable
       dataSource={completeRowList}
       bordered
-      scroll={{ x: 860 }}
+      scroll={{ x: 900 }}
       pagination={false}
       locale={{
         filterTitle: null,
@@ -237,7 +237,7 @@ function AddressTable(props) {
         title="Balance"
         dataIndex="balance"
         key="balance"
-        width="80px"
+        width="100px"
         filters={[{
           text: 'Remove empty',
           value: '0 ETH',
