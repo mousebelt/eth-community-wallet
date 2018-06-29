@@ -1,6 +1,22 @@
 import { injectGlobal } from 'styled-components';
 
 /* eslint no-unused-expressions: 0 */
+const NRLColors = {
+  black: '#222722',
+  yellow: '#ffe965',
+  red: '#e34132',
+
+  white: '#ffffff',
+  lightWhite: '#f4f4f4',
+
+  grey: '#d6d2d2',
+  lightGrey: '#eaebea',
+
+  green: '#3cb878',
+  lightGreen: '#fdfffc',
+};
+
+/* eslint no-unused-expressions: 0 */
 /* injectGlobal`
   html,
   body {
@@ -48,7 +64,7 @@ injectGlobal`
 
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    color: #222722;
+    color: ${NRLColors.black};
   }
 
   body.fontLoaded {
@@ -61,17 +77,23 @@ injectGlobal`
     min-width: 100%;
   }
 
-  h1, h2, h3, h4, h5, h6, p, span, a {
+  h1, h2, h3, h4, h5, h6, p, span {
     font-family: 'Space Mono', monospace;
     margin: 0px;
+    color: ${NRLColors.black};
   }
 
   body {
     text-align: center;
   }
+
   hr {
     width: 200px;
     text-align:center !important;
     margin: 0 auto !important;
+  }
+
+  .ant-btn-primary span {
+    color: ${NRLColors.white}
   }
 `;
