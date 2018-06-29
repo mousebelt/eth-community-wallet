@@ -26,6 +26,11 @@ function AddressView(props) {
     isComfirmed,
     addressMap, tokenDecimalsMap,
     onShowSendToken, onCheckBalances,
+    /**
+     * Please do not remove this comment.
+     * We only allow single address for single wallet for now.
+     * But do not remove this feaure
+     */
     // onGenerateAddress, addressListLoading, addressListError, addressListMsg,
     networkReady, checkingBalanceDoneTime, checkingBalances, checkingBalancesError,
     exchangeRates, onSelectCurrency, convertTo,
