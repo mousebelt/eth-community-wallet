@@ -96,4 +96,8 @@ injectGlobal`
   .ant-btn-primary span {
     color: ${NRLColors.white}
   }
+
+  a {
+    color: ${NRLColors.red}
+  }
 `;
