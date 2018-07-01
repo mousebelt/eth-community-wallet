@@ -28,6 +28,9 @@ import {
   ASK_FAUCET,
   ASK_FAUCET_SUCCESS,
   ASK_FAUCET_ERROR,
+  GET_GAS_PRICE,
+  GET_GAS_PRICE_SUCCESS,
+  GET_GAS_PRICE_ERROR,
 } from './constants';
 
 import { store } from '../../app';
@@ -169,6 +172,47 @@ export function getExchangeRatesError(error) {
   message.error(error);
   return {
     type: GET_EXCHANGE_RATES_ERROR,
+    error,
+  };
+}
+
+/* *********************************** Get Gas Price Actions ******************* */
+/**
+ * Get exchange rates from api
+ *
+ * @return {object}    An action object with a type of CHECK_BALANCES
+ */
+export function getGasPrice() {
+  return {
+    type: GET_GAS_PRICE,
+  };
+}
+
+/**
+ * getExchangeRates successful
+ *
+ * @return {object}      An action object with a type of GET_EXCHANGE_RATES_SUCCESS
+ */
+export function getGasPriceSuccess() {
+  const timeString = new Date().toLocaleTimeString();
+  message.success('Exchange rates updated succesfully');
+  return {
+    type: GET_GAS_PRICE_SUCCESS,
+    timeString,
+  };
+}
+
+/**
+ * getExchangeRates failed
+ *
+ * @param  {object} error The error
+ *
+ * @return {object} An action object with a type of CHECK_BALANCES_ERROR passing the error
+ */
+export function getGasPriceError(error) {
+  message.error(error);
+  return {
+    type: GET_GAS_PRICE_ERROR,
     error,
   };
 }

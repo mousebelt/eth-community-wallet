@@ -22,6 +22,9 @@ import {
 
   ASK_FAUCET_ERROR,
   ASK_FAUCET_SUCCESS,
+  GET_GAS_PRICE,
+  GET_GAS_PRICE_SUCCESS,
+  GET_GAS_PRICE_ERROR,
 
 } from './constants';
 
@@ -45,6 +48,10 @@ const initialState = fromJS({
   getExchangeRatesDoneTime: false, // should update after every succesfull exchange rate check
   getExchangeRatesLoading: false,
   getExchangeRatesError: false,
+
+  getGasPriceDoneTime: false,
+  getGasPriceLoading: false,
+  getGasPriceError: false,
 
   usedFaucet: false, // to prevent offer more then once
 });
@@ -101,6 +108,22 @@ function headerReducer(state = initialState, action) {
         .set('getExchangeRatesLoading', false)
         .set('getExchangeRatesError', action.error)
         .set('getExchangeRatesDoneTime', false);
+
+    case GET_GAS_PRICE:
+      return state
+        .set('getGasPriceLoading', true)
+        .set('getGasPriceError', false)
+        .set('getGasPriceDoneTime', false);
+    case GET_GAS_PRICE_SUCCESS:
+      return state
+        .set('getGasPriceLoading', false)
+        .set('getGasPriceError', false)
+        .set('getExchangeRatesDoneTime', action.timeString);
+    case GET_GAS_PRICE_ERROR:
+      return state
+        .set('getGasPriceLoading', false)
+        .set('getGasPriceError', action.error)
+        .set('getGasPriceDoneTime', false);
 
     case ASK_FAUCET_SUCCESS:
       return state

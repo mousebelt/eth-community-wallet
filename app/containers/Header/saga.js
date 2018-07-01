@@ -23,6 +23,7 @@ import {
   confirmSendTransactionError,
   sendTransactionSuccess,
   sendTransactionError,
+  changeGasPrice,
 } from 'containers/SendToken/actions';
 import {
   makeSelectFrom,
@@ -72,6 +73,9 @@ import {
   checkFaucetError,
   askFaucetSuccess,
   askFaucetError,
+  getGasPrice,
+  getGasPriceError,
+  getGasPriceSuccess,
 } from './actions';
 
 import {
@@ -81,6 +85,7 @@ import {
   CHECK_BALANCES_ERROR,
   STOP_POLL_BALANCES,
   GET_EXCHANGE_RATES,
+  GET_GAS_PRICE,
   CHECK_FAUCET,
   ASK_FAUCET,
 } from './constants';
@@ -145,6 +150,7 @@ export function* loadNetwork(action) {
       // actions after succesfull network load :
       yield put(checkBalances());
       yield put(getExchangeRates());
+      yield put(getGasPrice());
 
       // clear token list if changed network
 
@@ -423,6 +429,22 @@ export function* getRates() {
 }
 
 /**
+ * Get gas price from https://www.etherchain.org/api/gasPriceOracle
+ */
+
+export function* getGasPriceFromEtherchain() {
+  const requestURL = 'https://www.etherchain.org/api/gasPriceOracle';
+
+  try {
+    const gasPrice = online ? (yield call(request, requestURL)) : 10;
+    yield put(changeGasPrice((+gasPrice.standard)));
+    yield put(getGasPriceSuccess());
+  } catch (err) {
+    yield put(getGasPriceError(err));
+  }
+}
+
+/**
  * Check if faucet ready via api
  */
 export function* checkFaucetApi() {
@@ -472,6 +494,7 @@ export default function* defaultSaga() {
   yield takeLatest(COMFIRM_SEND_TRANSACTION, confirmSendTransaction);
   yield takeLatest(SEND_TRANSACTION, SendTransaction);
   yield takeLatest(GET_EXCHANGE_RATES, getRates);
+  yield takeLatest(GET_GAS_PRICE, getGasPriceFromEtherchain);
 
   yield takeLatest(CHECK_FAUCET, checkFaucetApi);
   yield takeLatest(ASK_FAUCET, askFaucetApi);
