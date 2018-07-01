@@ -18,6 +18,11 @@ export const GET_EXCHANGE_RATES = 'app/Header/GET_EXCHANGE_RATES';
 export const GET_EXCHANGE_RATES_SUCCESS = 'app/Header/GET_EXCHANGE_RATES_SUCCESS';
 export const GET_EXCHANGE_RATES_ERROR = 'app/Header/GET_EXCHANGE_RATES_ERROR';
 
+export const GET_GAS_PRICE = 'app/Header/GET_GAS_PRICE';
+export const GET_GAS_PRICE_SUCCESS = 'app/Header/GET_GAS_PRICE_SUCCESS';
+export const GET_GAS_PRICE_ERROR = 'app/Header/GET_GAS_PRICE_ERROR';
+
+
 export const CHECK_FAUCET = 'app/Header/CHECK_FAUCET';
 export const CHECK_FAUCET_SUCCESS = 'app/Header/CHECK_FAUCETT_SUCCESS';
 export const CHECK_FAUCET_ERROR = 'app/Header/CHECK_FAUCET_ERROR';
