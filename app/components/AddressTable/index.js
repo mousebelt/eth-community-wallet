@@ -125,7 +125,7 @@ const transformList = (addressMap, tokenDecimalsMap, showTokens) => { //eslint-d
 const getConvertRate = (exchangeRates, from, to) => {
   const fromKey = `eth_${from}`;
   // convert token to eth by invert(eth_token)
-  const toEthRate = exchangeRates[fromKey].rate.toPower(-1);
+  const toEthRate = (exchangeRates[fromKey].rate ** -1);
   const toTokenRate = exchangeRates[to].rate;
   return toEthRate && toTokenRate && toEthRate.times(toTokenRate);
 };
