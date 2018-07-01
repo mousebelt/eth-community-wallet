@@ -167,7 +167,6 @@ function AddressTable(props) {
   } = props;
   const currencyDropdownProps = { exchangeRates, onSelectCurrency, convertTo };
 
-
   const rowList = transformList(addressMap, tokenDecimalsMap, true);
   const completeRowList = addConvertRates(rowList, exchangeRates, convertTo);
 
