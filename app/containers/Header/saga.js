@@ -295,6 +295,7 @@ function* checkTokenBalance(address, symbol) {
     return null;
   }
   const tokenInfo = yield select(makeSelectTokenInfo(symbol));
+
   const contractAddress = tokenInfo.contractAddress;
 
   const balance = yield call(getTokenBalancePromise, address, contractAddress);
@@ -314,10 +315,8 @@ function* checkTokensBalances(address) {
 
   for (let i = 0; i < tokenList.length; i += 1) {
     const symbol = tokenList[i];
-    // console.log('address: ' + address + ' token: ' + tokenList[i]);
     yield checkTokenBalance(address, symbol);
   }
-  // console.log(tokenMap);
 }
 
 export function* checkAllBalances() {
