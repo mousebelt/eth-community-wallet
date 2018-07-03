@@ -640,7 +640,6 @@ export function saveWalletSuccess() {
  * @return {object} An action object with a type of SAVE_WALLET_ERROR
  */
 export function saveWalletError(error) {
-  console.warn(error);
   return {
     type: SAVE_WALLET_ERROR,
     error,

@@ -3,6 +3,7 @@
  */
 import lightwallet from 'eth-lightwallet';
 import localStore from 'store/dist/store.modern';
+import { saveAs } from 'file-saver';
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
@@ -61,7 +62,9 @@ import {
   loadWalletSuccess,
   loadWalletError,
   updateTokenInfo,
+  downloadKeystore,
 } from './actions';
+import { DOWNLOAD_KEYSTORE } from './constants';
 
 /**
  * Create new seed and password
@@ -161,6 +164,7 @@ export function* genKeystore() {
 
     yield put(generateKeystoreSuccess(ks, tokenList));
     yield put(loadNetwork(defaultNetwork));
+    // yield put(downloadKeystore());
     yield put(saveWallet());
   } catch (err) {
     const errorString = `genKeystore error - ${err}`;
@@ -307,10 +311,13 @@ export function* saveWalletS() {
       ks: ks.serialize(),
     };
 
-    console.log(dump);
     // console.log(`Saving len: ${JSON.stringify(dump).length}`);
 
-    localStore.set(localStorageKey, dump);
+    // localStore.set(localStorageKey, dump);
+
+    const keystoreBlob = new Blob([JSON.stringify(dump)], { type: 'application/json' });
+
+    saveAs(keystoreBlob, 'keystore.json');
 
     yield put(saveWalletSuccess());
   } catch (err) {
@@ -367,6 +374,20 @@ export function* chosenTokenInfo(action) {
 }
 
 /**
+ * Saga triggered after creating wallet to save keystore file
+ * @param {object} action dispatched after creating wallet
+ */
+export function* downloadKeystoreS() {
+  const dumy = {
+    abc: 'abc',
+  };
+
+  const keystoreBlob = new Blob([JSON.stringify(dumy)], { type: 'application/json' });
+
+  saveAs(keystoreBlob, 'keystore.json');
+}
+
+/**
  * Root saga manages watcher lifecycle
  */
 export default function* walletData() {
@@ -388,6 +409,7 @@ export default function* walletData() {
   yield takeLatest(LOAD_WALLET, loadWalletS);
 
   yield takeLatest(CONFIRM_UPDATE_TOKEN_INFO, chosenTokenInfo);
+  yield takeLatest(DOWNLOAD_KEYSTORE, downloadKeystoreS);
   /*
   while (yield takeLatest(INIT_WALLET, initSeed)) {
     // yield takeLatest(GENERATE_KEYSTORE, genKeystore);
