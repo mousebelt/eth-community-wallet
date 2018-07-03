@@ -306,6 +306,8 @@ export function* saveWalletS() {
       saved: new Date().toISOString(),
       ks: ks.serialize(),
     };
+
+    console.log(dump);
     // console.log(`Saving len: ${JSON.stringify(dump).length}`);
 
     localStore.set(localStorageKey, dump);

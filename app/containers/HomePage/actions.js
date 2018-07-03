@@ -68,6 +68,7 @@ import {
   LOAD_WALLET,
   LOAD_WALLET_SUCCESS,
   LOAD_WALLET_ERROR,
+  DOWNLOAD_KEYSTORE,
 } from './constants';
 
 
@@ -674,10 +675,19 @@ export function loadWalletSuccess() {
  * @return {object} An action object with a type of LOAD_WALLET_ERROR
  */
 export function loadWalletError(error) {
-  console.log(error);
   return {
     type: LOAD_WALLET_ERROR,
     error,
   };
 }
 
+/**
+ * Download keystore when creating wallet
+ *
+ * @return {object} An action object with a type of DOWNLOAD_KEYSTORE
+ */
+export function downloadKeystore() {
+  return {
+    type: DOWNLOAD_KEYSTORE,
+  };
+}
