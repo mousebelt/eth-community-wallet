@@ -12,7 +12,9 @@ export const SHOW_RESTORE_WALLET = 'eth-hot-wallet/HomePage/SHOW_RESTORE_WALLET'
 export const RESTORE_WALLET_CANCEL = 'eth-hot-wallet/HomePage/RESTORE_WALLET_CANCEL';
 export const CHANGE_USER_SEED = 'eth-hot-wallet/HomePage/CHANGE_USER_SEED';
 export const CHANGE_USER_PASSWORD = 'eth-hot-wallet/HomePage/CHANGE_USER_PASSWORD';
+export const CHANGE_USER_KEYSTORE = 'eth-hot-wallet/HomePage/CHANGE_USER_KEYSTORE';
 
+export const RESTORE_WALLET_FROM_KEYSTORE = 'eth-hot-wallet/HomePage/RESTORE_WALLET_FROM_KEYSTORE';
 export const RESTORE_WALLET_FROM_SEED = 'eth-hot-wallet/HomePage/RESTORE_WALLET_FROM_SEED';
 export const RESTORE_WALLET_FROM_SEED_SUCCESS = 'eth-hot-wallet/HomePage/RESTORE_WALLET_FROM_SEED_SUCCESS';
 export const RESTORE_WALLET_FROM_SEED_ERROR = 'eth-hot-wallet/HomePage/RESTORE_WALLET_FROM_SEED_ERROR';
@@ -57,3 +59,4 @@ export const LOAD_WALLET = 'eth-hot-wallet/HomePage/LOAD_WALLET';
 export const LOAD_WALLET_SUCCESS = 'eth-hot-wallet/HomePage/LOAD_WALLET_SUCCESS';
 export const LOAD_WALLET_ERROR = 'eth-hot-wallet/HomePage/LOAD_WALLET_ERROR';
 
+export const DOWNLOAD_KEYSTORE = 'eth-hot-wallet/HomePage/DOWNLOAD';

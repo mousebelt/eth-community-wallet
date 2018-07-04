@@ -195,7 +195,7 @@ export function getGasPrice() {
  */
 export function getGasPriceSuccess() {
   const timeString = new Date().toLocaleTimeString();
-  message.success('Exchange rates updated succesfully');
+  message.success('Gas price updated succesfully');
   return {
     type: GET_GAS_PRICE_SUCCESS,
     timeString,

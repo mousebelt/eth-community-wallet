@@ -3,6 +3,7 @@
  */
 import lightwallet from 'eth-lightwallet';
 import localStore from 'store/dist/store.modern';
+import { saveAs } from 'file-saver';
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 
@@ -26,6 +27,7 @@ import {
   makeSelectUserSeed,
   makeSelectUserPassword,
   makeSelectKeystore,
+  makeSelectUserKeystore,
   makeSelectTokenInfoList,
 } from 'containers/HomePage/selectors';
 
@@ -62,6 +64,7 @@ import {
   loadWalletError,
   updateTokenInfo,
 } from './actions';
+import { DOWNLOAD_KEYSTORE, RESTORE_WALLET_FROM_KEYSTORE } from './constants';
 
 /**
  * Create new seed and password
@@ -108,6 +111,94 @@ export function* restoreFromSeed() {
   } catch (err) {
     yield put(restoreWalletFromSeedError(err));
   }
+}
+
+
+/**
+ * check seed given by user
+ */
+export function* restoreFromKeystore() {
+  try {
+    function keystoreReadPromise(param) { // eslint-disable-line no-inner-declarations
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = (event) => {
+          const content = event.target.result;
+          return resolve(content);
+        };
+        reader.onerror = (error) => { // eslint-disable-line arrow-body-style
+          return reject(error);
+        };
+        reader.readAsText(param);
+      });
+    }
+
+    function keyFromPasswordPromise(param) { // eslint-disable-line no-inner-declarations
+      return new Promise((resolve, reject) => {
+        ks.keyFromPassword(param, (err, data) => {
+          if (err !== null) return reject(err);
+          return resolve(data);
+        });
+      });
+    }
+
+    const userKeystore = yield select(makeSelectUserKeystore());
+    const userPassword = yield select(makeSelectUserPassword());
+
+    if (userPassword.length < 8) {
+      yield put(restoreWalletFromSeedError('Password length must be 8 characters at least'));
+      return;
+    }
+
+    const dumpText = yield call(keystoreReadPromise, userKeystore);
+
+    const dump = JSON.parse(dumpText);
+
+    // const dump = localStore.get(localStorageKey);
+    if (!dump) {
+      yield put(restoreWalletFromSeedError('Invalid keystore file'));
+      return;
+    }
+
+    const ksDump = dump.ks;
+    const ks = lightwallet.keystore.deserialize(ksDump);
+    const pwDerivedKey = yield call(keyFromPasswordPromise, userPassword);
+
+    if (!ks.isDerivedKeyCorrect(pwDerivedKey)) {
+      yield put(restoreWalletFromSeedError('Invalid keystore encrypt password'));
+      return;
+    }
+
+    const tokenList = yield select(makeSelectTokenInfoList());
+    yield put(generateKeystoreSuccess(ks, tokenList));
+    yield put(restoreWalletFromSeedSuccess('', userPassword));
+    yield put(loadNetwork(defaultNetwork));
+  } catch (err) {
+    yield put(restoreWalletFromSeedError(err));
+  }
+  // try {
+  //   const userPassword = yield select(makeSelectUserPassword());
+  //   let userSeed = yield select(makeSelectUserSeed());
+
+  //   // remove trailing spaces if needed
+  //   yield put(changeUserSeed(userSeed.replace(/^\s+|\s+$/g, '')));
+  //   userSeed = yield select(makeSelectUserSeed());
+
+  //   if (!lightwallet.keystore.isSeedValid(userSeed)) {
+  //     yield put(restoreWalletFromSeedError('Invalid seed'));
+  //     return;
+  //   }
+
+  //   if (userPassword.length < 8) {
+  //     yield put(restoreWalletFromSeedError('Password length must be 8 characters at least'));
+  //     return;
+  //   }
+
+  //   yield put(restoreWalletFromSeedSuccess(userSeed, userPassword));
+  //   yield put(generateKeystore());
+  // } catch (err) {
+  //   yield put(restoreWalletFromSeedError(err));
+  // }
 }
 
 /* keyStore.createVault({password: password,
@@ -161,6 +252,7 @@ export function* genKeystore() {
 
     yield put(generateKeystoreSuccess(ks, tokenList));
     yield put(loadNetwork(defaultNetwork));
+    // yield put(downloadKeystore());
     yield put(saveWallet());
   } catch (err) {
     const errorString = `genKeystore error - ${err}`;
@@ -306,9 +398,14 @@ export function* saveWalletS() {
       saved: new Date().toISOString(),
       ks: ks.serialize(),
     };
+
     // console.log(`Saving len: ${JSON.stringify(dump).length}`);
 
-    localStore.set(localStorageKey, dump);
+    // localStore.set(localStorageKey, dump);
+
+    const keystoreBlob = new Blob([JSON.stringify(dump)], { type: 'application/json' });
+
+    saveAs(keystoreBlob, 'keystore.json');
 
     yield put(saveWalletSuccess());
   } catch (err) {
@@ -365,6 +462,20 @@ export function* chosenTokenInfo(action) {
 }
 
 /**
+ * Saga triggered after creating wallet to save keystore file
+ * @param {object} action dispatched after creating wallet
+ */
+export function* downloadKeystoreS() {
+  const dumy = {
+    abc: 'abc',
+  };
+
+  const keystoreBlob = new Blob([JSON.stringify(dumy)], { type: 'application/json' });
+
+  saveAs(keystoreBlob, 'keystore.json');
+}
+
+/**
  * Root saga manages watcher lifecycle
  */
 export default function* walletData() {
@@ -378,6 +489,7 @@ export default function* walletData() {
   yield takeLatest(GENERATE_KEYSTORE, genKeystore);
   yield takeLatest(GENERATE_ADDRESS, generateAddress);
   yield takeLatest(RESTORE_WALLET_FROM_SEED, restoreFromSeed);
+  yield takeLatest(RESTORE_WALLET_FROM_KEYSTORE, restoreFromKeystore);
   yield takeLatest(UNLOCK_WALLET, unlockWallet);
   yield takeLatest(SHOW_SEND_TOKEN, changeSourceAddress);
   yield takeLatest(CLOSE_WALLET, closeWallet);
@@ -386,6 +498,7 @@ export default function* walletData() {
   yield takeLatest(LOAD_WALLET, loadWalletS);
 
   yield takeLatest(CONFIRM_UPDATE_TOKEN_INFO, chosenTokenInfo);
+  yield takeLatest(DOWNLOAD_KEYSTORE, downloadKeystoreS);
   /*
   while (yield takeLatest(INIT_WALLET, initSeed)) {
     // yield takeLatest(GENERATE_KEYSTORE, genKeystore);

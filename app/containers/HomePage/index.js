@@ -55,6 +55,7 @@ import {
   generateKeystore,
   changeUserSeed,
   changeUserPassword,
+  changeUserKeystore,
   restoreWalletFromSeed,
   showSendToken,
   hideSendToken,
@@ -67,6 +68,7 @@ import {
   closeWallet,
   saveWallet,
   loadWallet,
+  restoreWalletFromKeystore,
 } from './actions';
 
 import {
@@ -95,6 +97,7 @@ import {
   makeSelectLoadWalletLoading,
   makeSelectLoadwalletError,
   makeSelectTokenDecimalsMap,
+  makeSelectUserKeystore,
 } from './selectors';
 
 
@@ -128,9 +131,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isShowRestoreWallet,
       userSeed,
       userPassword,
+      userKeystore,
       onChangeUserSeed,
       onChangeUserPassword,
+      onChangeUserKeystore,
       onRestoreWalletFromSeed,
+      onRestoreWalletFromKeystore,
       onRestoreWalletCancel,
 
       isShowSendToken,
@@ -204,11 +210,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isShowRestoreWallet,
       userSeed,
       userPassword,
+      userKeystore,
       restoreWalletError,
       onChangeUserSeed,
       onChangeUserPassword,
+      onChangeUserKeystore,
       onRestoreWalletCancel,
       onRestoreWalletFromSeed,
+      onRestoreWalletFromKeystore,
     };
 
     const addressViewProps = {
@@ -294,14 +303,20 @@ HomePage.propTypes = {
   isShowRestoreWallet: PropTypes.bool,
   userSeed: PropTypes.string,
   userPassword: PropTypes.string,
+  userKeystore: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   onChangeUserSeed: PropTypes.func,
   onChangeUserPassword: PropTypes.func,
+  onChangeUserKeystore: PropTypes.func,
   restoreWalletError: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
     PropTypes.bool,
   ]),
   onRestoreWalletFromSeed: PropTypes.func,
+  onRestoreWalletFromKeystore: PropTypes.func,
   onRestoreWalletCancel: PropTypes.func,
 
   onCheckBalances: PropTypes.func,
@@ -311,7 +326,6 @@ HomePage.propTypes = {
 
   isComfirmed: PropTypes.bool,
   addressMap: PropTypes.oneOfType([
-    // PropTypes.array,
     PropTypes.bool,
     PropTypes.object,
   ]),
@@ -397,9 +411,16 @@ export function mapDispatchToProps(dispatch) {
       // console.log(evt.target);
       dispatch(changeUserPassword(evt.target.value));
     },
+    onChangeUserKeystore: (info) => {
+      dispatch(changeUserKeystore(info.file));
+    },
     onRestoreWalletFromSeed: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(restoreWalletFromSeed());
+    },
+    onRestoreWalletFromKeystore: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(restoreWalletFromKeystore());
     },
     onCheckBalances: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
@@ -463,6 +484,7 @@ const mapStateToProps = createStructuredSelector({
   isShowRestoreWallet: makeSelectShowRestoreWallet(),
   userSeed: makeSelectUserSeed(),
   userPassword: makeSelectUserPassword(),
+  userKeystore: makeSelectUserKeystore(),
 
   isShowSendToken: makeSelectIsShowSendToken(),
   isShowTokenChooser: makeSelectIsShowTokenChooser(),

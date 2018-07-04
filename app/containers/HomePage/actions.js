@@ -30,6 +30,7 @@ import {
   RESTORE_WALLET_CANCEL,
   CHANGE_USER_SEED,
   CHANGE_USER_PASSWORD,
+  CHANGE_USER_KEYSTORE,
   RESTORE_WALLET_FROM_SEED,
   RESTORE_WALLET_FROM_SEED_SUCCESS,
   RESTORE_WALLET_FROM_SEED_ERROR,
@@ -68,6 +69,8 @@ import {
   LOAD_WALLET,
   LOAD_WALLET_SUCCESS,
   LOAD_WALLET_ERROR,
+  DOWNLOAD_KEYSTORE,
+  RESTORE_WALLET_FROM_KEYSTORE,
 } from './constants';
 
 
@@ -162,6 +165,20 @@ export function changeUserSeed(userSeed) {
 }
 
 /**
+ * Changes the input field for user seed
+ *
+ * @param  {object} info Uploaded keystore file information
+ *
+ * @return {object}    An action object with a type of CHANGE_USER_SEED
+ */
+export function changeUserKeystore(file) {
+  return {
+    type: CHANGE_USER_KEYSTORE,
+    userKeystore: file,
+  };
+}
+
+/**
  * Changes the input field for user password
  *
  * @param  {name} seed The new text of the input field
@@ -188,6 +205,17 @@ export function restoreWalletFromSeed() {
   };
 }
 
+/**
+ * Try to restore wallet from seed provided by user.
+ *
+ * @return {object}    An action object with a type of RESTORE_WALLET_FROM_SEED
+ *
+ */
+export function restoreWalletFromKeystore() {
+  return {
+    type: RESTORE_WALLET_FROM_KEYSTORE,
+  };
+}
 /**
  * Valid seed provided by user
  *
@@ -639,7 +667,6 @@ export function saveWalletSuccess() {
  * @return {object} An action object with a type of SAVE_WALLET_ERROR
  */
 export function saveWalletError(error) {
-  console.warn(error);
   return {
     type: SAVE_WALLET_ERROR,
     error,
@@ -674,10 +701,19 @@ export function loadWalletSuccess() {
  * @return {object} An action object with a type of LOAD_WALLET_ERROR
  */
 export function loadWalletError(error) {
-  console.log(error);
   return {
     type: LOAD_WALLET_ERROR,
     error,
   };
 }
 
+/**
+ * Download keystore when creating wallet
+ *
+ * @return {object} An action object with a type of DOWNLOAD_KEYSTORE
+ */
+export function downloadKeystore() {
+  return {
+    type: DOWNLOAD_KEYSTORE,
+  };
+}

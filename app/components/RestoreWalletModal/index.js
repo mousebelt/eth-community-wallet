@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Modal, Button, Input, Icon, Tooltip } from 'antd';
+import { Modal, Button, Input, Icon, Tooltip, Upload, Divider } from 'antd';
 
 const Div = styled.div`
   margin-top: 12px;
@@ -25,7 +25,19 @@ const Description = styled.div`
 `;
 
 function RestoreWalletModal(props) {
-  const { isShowRestoreWallet, userSeed, userPassword, restoreWalletError, onChangeUserSeed, onChangeUserPassword, onRestoreWalletCancel, onRestoreWalletFromSeed } = props;
+  const {
+    isShowRestoreWallet,
+    userSeed,
+    userPassword,
+    userKeystore,
+    restoreWalletError,
+    onChangeUserSeed,
+    onChangeUserPassword,
+    onChangeUserKeystore,
+    onRestoreWalletCancel,
+    onRestoreWalletFromSeed,
+    onRestoreWalletFromKeystore,
+  } = props;
   // const suffix = userSeed ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
   const errorComponent =
     (<Span key="error">
@@ -42,7 +54,18 @@ function RestoreWalletModal(props) {
       onCancel={onRestoreWalletCancel}
       footer={[
         restoreWalletError ? errorComponent : null,
-        <Button key="submit" type="primary" size="large" onClick={onRestoreWalletFromSeed} >
+        <Button
+          key="submit"
+          type="primary"
+          size="large"
+          onClick={(evt) => {
+            if (userKeystore) {
+              onRestoreWalletFromKeystore(evt);
+            } else {
+              onRestoreWalletFromSeed(evt);
+            }
+          }}
+        >
           Restore
         </Button >,
       ]}
@@ -58,6 +81,17 @@ function RestoreWalletModal(props) {
         autoCapitalize="off"
         spellCheck={false}
       />
+      <Divider>Or</Divider>
+      <Upload
+        accept=".json"
+        beforeUpload={() => false}
+        onChange={onChangeUserKeystore}
+        showUploadList={false}
+      >
+        <Button>
+          { userKeystore ? userKeystore.name : 'Choose Keystore file'}
+        </Button>
+      </Upload>
       <Div>
         <Input
           placeholder="Enter password for keystore encryption"
@@ -68,6 +102,7 @@ function RestoreWalletModal(props) {
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck={false}
+          type="password"
         />
       </Div>
     </Modal>
@@ -78,8 +113,13 @@ RestoreWalletModal.propTypes = {
   isShowRestoreWallet: PropTypes.bool,
   userSeed: PropTypes.string,
   userPassword: PropTypes.string,
+  userKeystore: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   onChangeUserSeed: PropTypes.func,
   onChangeUserPassword: PropTypes.func,
+  onChangeUserKeystore: PropTypes.func,
   restoreWalletError: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
@@ -87,6 +127,7 @@ RestoreWalletModal.propTypes = {
   ]),
   onRestoreWalletCancel: PropTypes.func,
   onRestoreWalletFromSeed: PropTypes.func,
+  onRestoreWalletFromKeystore: PropTypes.func,
 };
 
 export default RestoreWalletModal;
