@@ -72,6 +72,10 @@ const makeSelectUserPassword = () => createSelector(
   selectHome,
   (homeState) => homeState.get('userPassword')
 );
+const makeSelectUserKeystore = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('userKeystore')
+);
 
 const makeSelectIsShowSendToken = () => createSelector(
   selectHome,
@@ -233,6 +237,7 @@ export {
   makeSelectShowRestoreWallet,
   makeSelectUserSeed,
   makeSelectUserPassword,
+  makeSelectUserKeystore,
   makeSelectIsShowSendToken,
   makeSelectIsShowTokenChooser,
 

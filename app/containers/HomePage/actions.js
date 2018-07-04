@@ -30,6 +30,7 @@ import {
   RESTORE_WALLET_CANCEL,
   CHANGE_USER_SEED,
   CHANGE_USER_PASSWORD,
+  CHANGE_USER_KEYSTORE,
   RESTORE_WALLET_FROM_SEED,
   RESTORE_WALLET_FROM_SEED_SUCCESS,
   RESTORE_WALLET_FROM_SEED_ERROR,
@@ -159,6 +160,20 @@ export function changeUserSeed(userSeed) {
   return {
     type: CHANGE_USER_SEED,
     userSeed,
+  };
+}
+
+/**
+ * Changes the input field for user seed
+ *
+ * @param  {object} info Uploaded keystore file information
+ *
+ * @return {object}    An action object with a type of CHANGE_USER_SEED
+ */
+export function changeUserKeystore(file) {
+  return {
+    type: CHANGE_USER_KEYSTORE,
+    userKeystore: file,
   };
 }
 

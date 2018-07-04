@@ -62,6 +62,7 @@ import {
   LOAD_WALLET,
   LOAD_WALLET_SUCCESS,
   LOAD_WALLET_ERROR,
+  CHANGE_USER_KEYSTORE,
 } from './constants';
 
 // The initial state of the App
@@ -78,6 +79,7 @@ const initialState = fromJS({
   isShowRestoreWallet: false,
   userSeed: '',
   userPassword: '',
+  userKeystore: false,
   restoreWalletError: false,
 
   isComfirmed: false, // if true then we have a valid keystore
@@ -178,6 +180,7 @@ function homeReducer(state = initialState, action) {
         .set('isShowRestoreWallet', false)
         .set('userPassword', '')
         .set('userSeed', '')
+        .set('userKeystore', false)
         .set('restoreWalletError', false);
     case CHANGE_USER_SEED:
       return state
@@ -185,6 +188,9 @@ function homeReducer(state = initialState, action) {
     case CHANGE_USER_PASSWORD:
       return state
         .set('userPassword', action.password);
+    case CHANGE_USER_KEYSTORE:
+      return state
+        .set('userKeystore', action.userKeystore);
     case RESTORE_WALLET_FROM_SEED:
       return state
         .set('restoreWalletError', false)
@@ -198,8 +204,8 @@ function homeReducer(state = initialState, action) {
         .set('seed', action.userSeed)
         .set('password', action.userPassword)
         .set('userSeed', '')
-        .set('userPassword', '');
-
+        .set('userPassword', '')
+        .set('userKeystore', false);
 
     case CHANGE_BALANCE:
       return state

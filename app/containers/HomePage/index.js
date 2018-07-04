@@ -55,6 +55,7 @@ import {
   generateKeystore,
   changeUserSeed,
   changeUserPassword,
+  changeUserKeystore,
   restoreWalletFromSeed,
   showSendToken,
   hideSendToken,
@@ -95,6 +96,7 @@ import {
   makeSelectLoadWalletLoading,
   makeSelectLoadwalletError,
   makeSelectTokenDecimalsMap,
+  makeSelectUserKeystore,
 } from './selectors';
 
 
@@ -128,8 +130,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isShowRestoreWallet,
       userSeed,
       userPassword,
+      userKeystore,
       onChangeUserSeed,
       onChangeUserPassword,
+      onChangeUserKeystore,
       onRestoreWalletFromSeed,
       onRestoreWalletCancel,
 
@@ -204,9 +208,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isShowRestoreWallet,
       userSeed,
       userPassword,
+      userKeystore,
       restoreWalletError,
       onChangeUserSeed,
       onChangeUserPassword,
+      onChangeUserKeystore,
       onRestoreWalletCancel,
       onRestoreWalletFromSeed,
     };
@@ -294,8 +300,13 @@ HomePage.propTypes = {
   isShowRestoreWallet: PropTypes.bool,
   userSeed: PropTypes.string,
   userPassword: PropTypes.string,
+  userKeystore: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   onChangeUserSeed: PropTypes.func,
   onChangeUserPassword: PropTypes.func,
+  onChangeUserKeystore: PropTypes.func,
   restoreWalletError: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,
@@ -311,7 +322,6 @@ HomePage.propTypes = {
 
   isComfirmed: PropTypes.bool,
   addressMap: PropTypes.oneOfType([
-    // PropTypes.array,
     PropTypes.bool,
     PropTypes.object,
   ]),
@@ -397,6 +407,9 @@ export function mapDispatchToProps(dispatch) {
       // console.log(evt.target);
       dispatch(changeUserPassword(evt.target.value));
     },
+    onChangeUserKeystore: (info) => {
+      dispatch(changeUserKeystore(info.file));
+    },
     onRestoreWalletFromSeed: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(restoreWalletFromSeed());
@@ -463,6 +476,7 @@ const mapStateToProps = createStructuredSelector({
   isShowRestoreWallet: makeSelectShowRestoreWallet(),
   userSeed: makeSelectUserSeed(),
   userPassword: makeSelectUserPassword(),
+  userKeystore: makeSelectUserKeystore(),
 
   isShowSendToken: makeSelectIsShowSendToken(),
   isShowTokenChooser: makeSelectIsShowTokenChooser(),

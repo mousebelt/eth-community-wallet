@@ -62,7 +62,6 @@ import {
   loadWalletSuccess,
   loadWalletError,
   updateTokenInfo,
-  downloadKeystore,
 } from './actions';
 import { DOWNLOAD_KEYSTORE } from './constants';
 
