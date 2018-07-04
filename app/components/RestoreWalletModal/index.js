@@ -36,6 +36,7 @@ function RestoreWalletModal(props) {
     onChangeUserKeystore,
     onRestoreWalletCancel,
     onRestoreWalletFromSeed,
+    onRestoreWalletFromKeystore,
   } = props;
   // const suffix = userSeed ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
   const errorComponent =
@@ -58,7 +59,11 @@ function RestoreWalletModal(props) {
           type="primary"
           size="large"
           onClick={(evt) => {
-            onRestoreWalletFromSeed(evt);
+            if (userKeystore) {
+              onRestoreWalletFromKeystore(evt);
+            } else {
+              onRestoreWalletFromSeed(evt);
+            }
           }}
         >
           Restore
@@ -97,6 +102,7 @@ function RestoreWalletModal(props) {
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck={false}
+          type="password"
         />
       </Div>
     </Modal>
@@ -121,6 +127,7 @@ RestoreWalletModal.propTypes = {
   ]),
   onRestoreWalletCancel: PropTypes.func,
   onRestoreWalletFromSeed: PropTypes.func,
+  onRestoreWalletFromKeystore: PropTypes.func,
 };
 
 export default RestoreWalletModal;

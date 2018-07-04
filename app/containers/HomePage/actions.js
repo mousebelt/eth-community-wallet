@@ -70,6 +70,7 @@ import {
   LOAD_WALLET_SUCCESS,
   LOAD_WALLET_ERROR,
   DOWNLOAD_KEYSTORE,
+  RESTORE_WALLET_FROM_KEYSTORE,
 } from './constants';
 
 
@@ -204,6 +205,17 @@ export function restoreWalletFromSeed() {
   };
 }
 
+/**
+ * Try to restore wallet from seed provided by user.
+ *
+ * @return {object}    An action object with a type of RESTORE_WALLET_FROM_SEED
+ *
+ */
+export function restoreWalletFromKeystore() {
+  return {
+    type: RESTORE_WALLET_FROM_KEYSTORE,
+  };
+}
 /**
  * Valid seed provided by user
  *

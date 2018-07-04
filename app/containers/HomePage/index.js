@@ -68,6 +68,7 @@ import {
   closeWallet,
   saveWallet,
   loadWallet,
+  restoreWalletFromKeystore,
 } from './actions';
 
 import {
@@ -135,6 +136,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       onChangeUserPassword,
       onChangeUserKeystore,
       onRestoreWalletFromSeed,
+      onRestoreWalletFromKeystore,
       onRestoreWalletCancel,
 
       isShowSendToken,
@@ -215,6 +217,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       onChangeUserKeystore,
       onRestoreWalletCancel,
       onRestoreWalletFromSeed,
+      onRestoreWalletFromKeystore,
     };
 
     const addressViewProps = {
@@ -313,6 +316,7 @@ HomePage.propTypes = {
     PropTypes.bool,
   ]),
   onRestoreWalletFromSeed: PropTypes.func,
+  onRestoreWalletFromKeystore: PropTypes.func,
   onRestoreWalletCancel: PropTypes.func,
 
   onCheckBalances: PropTypes.func,
@@ -413,6 +417,10 @@ export function mapDispatchToProps(dispatch) {
     onRestoreWalletFromSeed: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
       dispatch(restoreWalletFromSeed());
+    },
+    onRestoreWalletFromKeystore: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(restoreWalletFromKeystore());
     },
     onCheckBalances: (evt) => {
       if (evt !== undefined && evt.preventDefault) evt.preventDefault();
