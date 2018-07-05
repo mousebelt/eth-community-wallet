@@ -3,6 +3,11 @@
  * TokenChooser actions
  *
  */
+import localStore from 'store/dist/store.modern';
+import {
+  localStorageChosenTokens,
+} from 'utils/constants';
+
 import {
   TOGGLE_TOKEN,
   CONFIRM_UPDATE_TOKEN_INFO,
@@ -12,7 +17,6 @@ import {
   SUBMIT_NEW_TOKEN_SUCCESS,
   SUBMIT_NEW_TOKEN_ERROR,
 } from './constants';
-import { TokenSelection } from './token-lists';
 
 /**
  * Changes whether a single token is selected
@@ -38,12 +42,14 @@ export function toggleToken(symbol, toggle) {
  *
  * @return {object} An action object with a type of CONFIRM_UPDATE_TOKEN_INFO passing the symbol and toggle
  */
-export function confirmNewTokenInfo(chosenTokens, networkName) {
+export function confirmNewTokenInfo(chosenTokens, tokenList, networkName) {
   if (!chosenTokens) {
     return { type: CONFIRM_UPDATE_TOKEN_INFO, tokenInfo: {} };
   }
 
-  const filteredArray = TokenSelection[networkName].filter((x) => chosenTokens[x.symbol]);
+  localStore.set(localStorageChosenTokens, chosenTokens);
+
+  const filteredArray = tokenList[networkName].filter((x) => chosenTokens[x.symbol]);
 
   const tokenInfo = filteredArray.reduce((acc, current) => {
     const { symbol, description, ...newObject } = current; // remove symbol,description

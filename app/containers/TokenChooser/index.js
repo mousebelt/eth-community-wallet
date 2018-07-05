@@ -20,6 +20,7 @@ import { makeSelectNetworkName } from 'containers/Header/selectors';
 import {
   makeSelectChosenTokens,
   makeSelectIsShowTokenForm,
+  makeSelectTokenList,
 } from './selectors';
 import {
   toggleToken,
@@ -32,8 +33,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 
-import TokenSelection from './token-lists';
-
 function TokenChooser(props) {
   const {
     isShowTokenChooser,
@@ -44,6 +43,7 @@ function TokenChooser(props) {
     onHideTokenForm,
     onSubmitNewToken,
 
+    tokenList,
     chosenTokens,
     onToggleToken,
     onConfirmNewTokenInfo,
@@ -51,7 +51,7 @@ function TokenChooser(props) {
 
    } = props;
 
-  const TokensForNetwork = TokenSelection[networkName];
+  const TokensForNetwork = tokenList[networkName];
 
   return (
     <div style={{ maxWidth: '600px', margin: 'auto' }}>
@@ -89,7 +89,7 @@ function TokenChooser(props) {
         <br />
         <Button
           type="primary"
-          onClick={() => onConfirmNewTokenInfo(chosenTokens, networkName)}
+          onClick={() => onConfirmNewTokenInfo(chosenTokens, tokenList, networkName)}
           disabled={false}
         >
           Update
@@ -105,12 +105,14 @@ function TokenChooser(props) {
 TokenChooser.propTypes = {
   // dispatch: PropTypes.func.isRequired,
   isShowTokenChooser: PropTypes.bool,
-  isShowTokenForm: PropTypes.bool,
   onHideTokenChooser: PropTypes.func,
 
+  tokenList: PropTypes.object,
   chosenTokens: PropTypes.object,
   onToggleToken: PropTypes.func,
   onConfirmNewTokenInfo: PropTypes.func,
+
+  isShowTokenForm: PropTypes.bool,
   onShowTokenForm: PropTypes.func,
   onHideTokenForm: PropTypes.func,
   onSubmitNewToken: PropTypes.func,
@@ -119,6 +121,8 @@ TokenChooser.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  tokenList: makeSelectTokenList(),
+
   chosenTokens: makeSelectChosenTokens(),
 
   networkName: makeSelectNetworkName(),
@@ -131,8 +135,8 @@ function mapDispatchToProps(dispatch) {
     onToggleToken: (symbol, toggle) => {
       dispatch(toggleToken(symbol, toggle));
     },
-    onConfirmNewTokenInfo: (chosenTokens, networkName) => {
-      dispatch(confirmNewTokenInfo(chosenTokens, networkName));
+    onConfirmNewTokenInfo: (chosenTokens, tokenList, networkName) => {
+      dispatch(confirmNewTokenInfo(chosenTokens, tokenList, networkName));
     },
     onShowTokenForm: () => {
       dispatch(showAddTokenForm());

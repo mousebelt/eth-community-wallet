@@ -5,6 +5,10 @@ import { createSelector } from 'reselect';
  */
 const selectTokenChooserDomain = (state) => state.get('tokenchooser');
 
+const makeSelectTokenList = () => createSelector(
+  selectTokenChooserDomain,
+  (substate) => substate.get('tokenList').toJS()
+);
 const makeSelectChosenTokens = () => createSelector(
   selectTokenChooserDomain,
   (substate) => substate.get('chosenTokens').toJS()
@@ -15,9 +19,11 @@ const makeSelectIsShowTokenForm = () => createSelector(
   (substate) => substate.get('isShowTokenForm')
 );
 
+
 export {
   selectTokenChooserDomain,
 
+  makeSelectTokenList,
   makeSelectChosenTokens,
 
   makeSelectIsShowTokenForm,

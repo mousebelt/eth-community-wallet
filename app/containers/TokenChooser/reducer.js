@@ -5,6 +5,14 @@
  */
 
 import { fromJS } from 'immutable';
+import localStore from 'store/dist/store.modern';
+import {
+  localStorageTokenList,
+  localStorageChosenTokens,
+} from 'utils/constants';
+
+import TokenSelection from './token-lists';
+
 import {
   TOGGLE_TOKEN,
   SHOW_ADD_TOKEN_FORM,
@@ -13,10 +21,32 @@ import {
   SUBMIT_NEW_TOKEN_ERROR,
 } from './constants';
 
+let savedTokenList = {};
+let savedChosenTokens = {};
+
+try {
+  // Load token list from local storage
+  savedTokenList = localStore.get(localStorageTokenList);
+
+  // If no saved token list, then use default TokenSelection
+  if (!savedTokenList) {
+    localStore.set(localStorageTokenList, TokenSelection);
+    savedTokenList = TokenSelection;
+  }
+
+  // Load chosen token from local storage
+  savedChosenTokens = localStore.get(localStorageChosenTokens) || {};
+} catch (err) {
+  console.log(err);
+}
+
 const initialState = fromJS({
-  chosenTokens: { eos: true },
+  tokenList: savedTokenList,
+
+  chosenTokens: savedChosenTokens,
 
   isShowTokenForm: false,
+
 });
 
 function tokenChooserReducer(state = initialState, action) {

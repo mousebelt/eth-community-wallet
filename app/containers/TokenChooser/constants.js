@@ -13,3 +13,4 @@ export const HIDE_ADD_TOKEN_FORM = 'eth-Hot-Wallet/TokenChooser/HIDE_ADD_TOKEN_F
 export const SUBMIT_NEW_TOKEN = 'eth-Hot-Wallet/TokenChooser/SUBMIT_NEW_TOKEN';
 export const SUBMIT_NEW_TOKEN_SUCCESS = 'eth-Hot-Wallet/TokenChooser/SUBMIT_NEW_TOKEN_SUCCESS';
 export const SUBMIT_NEW_TOKEN_ERROR = 'eth-Hot-Wallet/TokenChooser/SUBMIT_NEW_TOKEN_ERROR';
+
