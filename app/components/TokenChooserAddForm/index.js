@@ -22,13 +22,15 @@ class TokenChooserAddForm extends PureComponent {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values);
+        this.props.onSubmitNewToken(values);
       }
     });
   }
 
   handleCancel = (e) => {
     e.preventDefault();
+
+    this.props.onHideTokenForm();
   }
 
   render() {
@@ -114,6 +116,8 @@ class TokenChooserAddForm extends PureComponent {
 
 TokenChooserAddForm.propTypes = {
   form: PropTypes.object,
+  onSubmitNewToken: PropTypes.func,
+  onHideTokenForm: PropTypes.func,
 };
 
 const WrappedTokenChooserAddForm = Form.create()(TokenChooserAddForm);

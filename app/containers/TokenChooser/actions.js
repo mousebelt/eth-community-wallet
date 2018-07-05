@@ -6,6 +6,11 @@
 import {
   TOGGLE_TOKEN,
   CONFIRM_UPDATE_TOKEN_INFO,
+  SHOW_ADD_TOKEN_FORM,
+  HIDE_ADD_TOKEN_FORM,
+  SUBMIT_NEW_TOKEN,
+  SUBMIT_NEW_TOKEN_SUCCESS,
+  SUBMIT_NEW_TOKEN_ERROR,
 } from './constants';
 import { TokenSelection } from './token-lists';
 
@@ -55,4 +60,46 @@ export function confirmNewTokenInfo(chosenTokens, networkName) {
 /**
  * Show add token form
  */
-// export function Show
+export function showAddTokenForm() {
+  return {
+    type: SHOW_ADD_TOKEN_FORM,
+  };
+}
+
+/**
+ * Hide add token form
+ */
+export function hideAddTokenForm() {
+  return {
+    type: HIDE_ADD_TOKEN_FORM,
+  };
+}
+
+/**
+ * Submit new token
+ */
+export function submitNewToken(tokenInfo) {
+  return {
+    type: SUBMIT_NEW_TOKEN,
+    tokenInfo,
+  };
+}
+
+/**
+ * Submit new token success
+ */
+export function submitNewTokenSuccess() {
+  return {
+    type: SUBMIT_NEW_TOKEN_SUCCESS,
+  };
+}
+
+/**
+ * Submit new token error
+ */
+export function submitNewTokenError(error) {
+  return {
+    type: SUBMIT_NEW_TOKEN_ERROR,
+    error,
+  };
+}

@@ -10,8 +10,15 @@ const makeSelectChosenTokens = () => createSelector(
   (substate) => substate.get('chosenTokens').toJS()
 );
 
+const makeSelectIsShowTokenForm = () => createSelector(
+  selectTokenChooserDomain,
+  (substate) => substate.get('isShowTokenForm')
+);
+
 export {
   selectTokenChooserDomain,
 
   makeSelectChosenTokens,
+
+  makeSelectIsShowTokenForm,
 };
