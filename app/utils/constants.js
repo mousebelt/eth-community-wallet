@@ -32,6 +32,12 @@ export const defaultNetwork = 'Ropsten Testnet';
 /* keystore will be saved to local storage under this key */
 export const localStorageKey = 'ks';
 
+/* Token list will be saved to local storage under this key */
+export const localStorageTokenList = 'tokenList';
+
+/* Choosen tokens will be saved to local storage under this key */
+export const localStorageChosenTokens = 'chosenTokens';
+
 // addresses:
 export const website = 'https://eth-hot-wallet.com';
 export const github = 'https://github.com/PaulLaux/eth-hot-wallet';

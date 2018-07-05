@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -16,21 +16,43 @@ const Img = styled.img`
   }
 `;
 
-function TokenIcon({ tokenSymbol, size = 24 }) {
-  // const { tokenSymbol } = props;
+class TokenIcon extends PureComponent {
+  state = {
+    iconPath: 'token-icons/eth.png',
+  };
 
-  const iconPath = `token-icons/${tokenSymbol}.png`;
+  componentWillMount() {
+    const { tokenSymbol } = this.props;
 
-  return (
-    <span>
-      <Img alt={tokenSymbol} src={iconPath} height={size.toString()} />
-    </span>
-  );
+    this.setState({
+      iconPath: `token-icons/${tokenSymbol}.png`,
+    });
+  }
+
+  handleError = () => {
+    this.setState({
+      iconPath: 'token-icons/eth.png',
+    });
+  }
+
+  render() {
+    const { tokenSymbol, size } = this.props;
+    const { iconPath } = this.state;
+    return (
+      <span>
+        <Img alt={tokenSymbol} src={iconPath} height={size.toString()} onError={this.handleError} />
+      </span>
+    );
+  }
 }
 
 TokenIcon.propTypes = {
   tokenSymbol: PropTypes.string,
   size: PropTypes.number,
+};
+
+TokenIcon.defaultProps = {
+  size: 24,
 };
 
 export default TokenIcon;

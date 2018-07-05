@@ -11,24 +11,39 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-// import injectSaga from 'utils/injectSaga';
+import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import TokenChooserList from 'components/TokenChooserList';
+import TokenChooserAddForm from 'components/TokenChooserAddForm';
 import { makeSelectNetworkName } from 'containers/Header/selectors';
-import { makeSelectChosenTokens } from './selectors';
-import { toggleToken, confirmNewTokenInfo } from './actions';
+import {
+  makeSelectChosenTokens,
+  makeSelectIsShowTokenForm,
+  makeSelectTokenList,
+} from './selectors';
+import {
+  toggleToken,
+  confirmNewTokenInfo,
+  showAddTokenForm,
+  hideAddTokenForm,
+  submitNewToken,
+} from './actions';
 // import { makeSelectTokenChooser } from './selectors';
 import reducer from './reducer';
-// import saga from './saga';
-
-import TokenSelection from './token-lists';
+import saga from './saga';
 
 function TokenChooser(props) {
   const {
     isShowTokenChooser,
     onHideTokenChooser,
 
+    isShowTokenForm,
+    onShowTokenForm,
+    onHideTokenForm,
+    onSubmitNewToken,
+
+    tokenList,
     chosenTokens,
     onToggleToken,
     onConfirmNewTokenInfo,
@@ -36,7 +51,7 @@ function TokenChooser(props) {
 
    } = props;
 
-  const TokensForNetwork = TokenSelection[networkName];
+  const TokensForNetwork = tokenList[networkName];
 
   return (
     <div style={{ maxWidth: '600px', margin: 'auto' }}>
@@ -53,7 +68,30 @@ function TokenChooser(props) {
           onTokenToggle={onToggleToken}
         />
         <br />
-        <Button type="primary" onClick={() => onConfirmNewTokenInfo(chosenTokens, networkName)} disabled={false} >
+        {
+          isShowTokenForm ? (
+            <TokenChooserAddForm
+              onHideTokenForm={onHideTokenForm}
+              onSubmitNewToken={onSubmitNewToken}
+            />
+          ) : (
+            <div>
+              <Button
+                type="primary"
+                onClick={onShowTokenForm}
+                icon="plus-circle-o"
+              >
+                Add Token
+              </Button>
+            </div>
+          )
+        }
+        <br />
+        <Button
+          type="primary"
+          onClick={() => onConfirmNewTokenInfo(chosenTokens, tokenList, networkName)}
+          disabled={false}
+        >
           Update
         </Button>{' '}
         <Button onClick={() => onConfirmNewTokenInfo()} disabled={false} >
@@ -69,18 +107,27 @@ TokenChooser.propTypes = {
   isShowTokenChooser: PropTypes.bool,
   onHideTokenChooser: PropTypes.func,
 
+  tokenList: PropTypes.object,
   chosenTokens: PropTypes.object,
   onToggleToken: PropTypes.func,
   onConfirmNewTokenInfo: PropTypes.func,
+
+  isShowTokenForm: PropTypes.bool,
+  onShowTokenForm: PropTypes.func,
+  onHideTokenForm: PropTypes.func,
+  onSubmitNewToken: PropTypes.func,
 
   networkName: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
+  tokenList: makeSelectTokenList(),
+
   chosenTokens: makeSelectChosenTokens(),
 
   networkName: makeSelectNetworkName(),
 
+  isShowTokenForm: makeSelectIsShowTokenForm(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -88,8 +135,17 @@ function mapDispatchToProps(dispatch) {
     onToggleToken: (symbol, toggle) => {
       dispatch(toggleToken(symbol, toggle));
     },
-    onConfirmNewTokenInfo: (chosenTokens, networkName) => {
-      dispatch(confirmNewTokenInfo(chosenTokens, networkName));
+    onConfirmNewTokenInfo: (chosenTokens, tokenList, networkName) => {
+      dispatch(confirmNewTokenInfo(chosenTokens, tokenList, networkName));
+    },
+    onShowTokenForm: () => {
+      dispatch(showAddTokenForm());
+    },
+    onHideTokenForm: () => {
+      dispatch(hideAddTokenForm());
+    },
+    onSubmitNewToken: (tokenInfo) => {
+      dispatch(submitNewToken(tokenInfo));
     },
   };
 }
@@ -97,10 +153,10 @@ function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tokenchooser', reducer });
-// const withSaga = injectSaga({ key: 'tokenchooser', saga });
+const withSaga = injectSaga({ key: 'tokenchooser', saga });
 
 export default compose(
   withReducer,
-  // withSaga,
+  withSaga,
   withConnect,
 )(TokenChooser);

@@ -81,7 +81,6 @@ export function loadNetworkError(error) {
   };
 }
 
-
 /* *********************************** Check Balances Actions ******************* */
 /**
  * Initiate process to check balance of all known addresses
