@@ -15,6 +15,7 @@ import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 
 import TokenChooserList from 'components/TokenChooserList';
+import TokenChooserAddForm from 'components/TokenChooserAddForm';
 import { makeSelectNetworkName } from 'containers/Header/selectors';
 import { makeSelectChosenTokens } from './selectors';
 import { toggleToken, confirmNewTokenInfo } from './actions';
@@ -53,6 +54,7 @@ function TokenChooser(props) {
           onTokenToggle={onToggleToken}
         />
         <br />
+        <TokenChooserAddForm />
         <Button type="primary" onClick={() => onConfirmNewTokenInfo(chosenTokens, networkName)} disabled={false} >
           Update
         </Button>{' '}

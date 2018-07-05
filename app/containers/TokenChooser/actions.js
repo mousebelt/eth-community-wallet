@@ -51,3 +51,8 @@ export function confirmNewTokenInfo(chosenTokens, networkName) {
     tokenInfo,
   };
 }
+
+/**
+ * Show add token form
+ */
+// export function Show
