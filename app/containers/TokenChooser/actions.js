@@ -4,6 +4,7 @@
  *
  */
 import localStore from 'store/dist/store.modern';
+import { message } from 'antd';
 import {
   localStorageChosenTokens,
 } from 'utils/constants';
@@ -94,9 +95,13 @@ export function submitNewToken(tokenInfo) {
 /**
  * Submit new token success
  */
-export function submitNewTokenSuccess() {
+export function submitNewTokenSuccess(tokenInfo, newTokenList) {
+  message.success('Added new token successfully.');
+
   return {
     type: SUBMIT_NEW_TOKEN_SUCCESS,
+    tokenInfo,
+    newTokenList,
   };
 }
 
@@ -104,8 +109,9 @@ export function submitNewTokenSuccess() {
  * Submit new token error
  */
 export function submitNewTokenError(error) {
+  message.error(error);
+
   return {
     type: SUBMIT_NEW_TOKEN_ERROR,
-    error,
   };
 }

@@ -59,7 +59,9 @@ function tokenChooserReducer(state = initialState, action) {
       return state.set('isShowTokenForm', false);
     case SUBMIT_NEW_TOKEN_SUCCESS:
       return state
-        .set('isShowTokenForm', false);
+        .set('isShowTokenForm', false)
+        .set('tokenList', fromJS(action.newTokenList))
+        .setIn(['chosenTokens', action.tokenInfo.symbol], true);
     case SUBMIT_NEW_TOKEN_ERROR:
       return state;
     default:

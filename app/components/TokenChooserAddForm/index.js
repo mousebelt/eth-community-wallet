@@ -22,6 +22,7 @@ class TokenChooserAddForm extends PureComponent {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        values.symbol = values.symbol.toLowerCase();
         this.props.onSubmitNewToken(values);
       }
     });
@@ -64,18 +65,18 @@ class TokenChooserAddForm extends PureComponent {
       <Div>
         <Divider>Add Token</Divider>
         <Form onSubmit={this.handleSubmit}>
-          <FormItem {...formItemLayout} label="Name" >
-            {getFieldDecorator('name', {
-              rules: [{ required: true, message: 'Please input the token name' }],
-            })(
-              <Input placeholder="Token Name" />
-            )}
-          </FormItem>
           <FormItem {...formItemLayout} label="Symbol">
             {getFieldDecorator('symbol', {
               rules: [{ required: true, message: 'Please input the token symbol' }],
             })(
               <Input placeholder="Symbol" />
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Name" >
+            {getFieldDecorator('name', {
+              rules: [{ required: true, message: 'Please input the token name' }],
+            })(
+              <Input placeholder="Token Name" />
             )}
           </FormItem>
           <FormItem {...formItemLayout} label="Contract Address">
