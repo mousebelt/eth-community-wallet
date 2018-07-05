@@ -16,8 +16,8 @@ const Span = styled.span`
 function FaucetDescription(props) {
   const { tx, text } = props;
 
-  const explorer = 'https://ropsten.etherscan.io/tx/';
-  // const explorer = 'https://nrl.explorer.com/ETH/transaction/%s?netType=test';
+  // const explorer = 'https://ropsten.etherscan.io/tx/';
+  const explorer = 'http://mousexplore.mousebelt.com/eth/transaction/%s?net=test';
   const TxLinkProps = { tx, explorer };
 
   return (

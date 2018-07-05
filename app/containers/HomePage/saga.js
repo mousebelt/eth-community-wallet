@@ -405,7 +405,9 @@ export function* saveWalletS() {
 
     const keystoreBlob = new Blob([JSON.stringify(dump)], { type: 'application/json' });
 
-    saveAs(keystoreBlob, 'keystore.json');
+    const fileName = `keystore-ethwallet-${Date.now()}.json`;
+
+    saveAs(keystoreBlob, fileName);
 
     yield put(saveWalletSuccess());
   } catch (err) {

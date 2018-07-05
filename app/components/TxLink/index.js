@@ -16,16 +16,16 @@ overflow-wrap: break-word;
 function TxLink(props) {
   const { tx, explorer } = props;
   if (explorer) {
-    return (
-      <a href={`${explorer}${tx}`} target="_blank" rel="noopener">
-        <Span>{tx}</Span>
-      </a>
-    );
     // return (
-    //   <a href={`${util.format(explorer, tx)}`} target="_blank" rel="noopener">
+    //   <a href={`${explorer}${tx}`} target="_blank" rel="noopener">
     //     <Span>{tx}</Span>
     //   </a>
     // );
+    return (
+      <a href={`${util.format(explorer, tx)}`} target="_blank" rel="noopener">
+        <Span>{tx}</Span>
+      </a>
+    );
   }
   return (<Span>{tx}</Span>);
 }
