@@ -56,7 +56,7 @@ function SubHeader(props) {
 
   const existingWalletSubHeader = [
     <LockButton key="lock_button" {...lockButtonProps} />,
-    <Popconfirm key="close_wallet" placement="bottom" title="Wallet will be deleted from memory and LocalStorage" onConfirm={onCloseWallet} okText="Confirm" cancelText="Abort">
+    <Popconfirm key="close_wallet" placement="bottom" title="Wallet will be deleted from memory" onConfirm={onCloseWallet} okText="Confirm" cancelText="Abort">
       <Button key="close_wallet" type="default" icon="close-square-o" size="large">
         Close wallet
       </Button>
