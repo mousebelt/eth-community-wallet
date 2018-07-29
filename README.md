@@ -1,37 +1,16 @@
-# ETH-Hot-Wallet 
+# Ethereum Wallet 
 
 ## Ethereum wallet with ERC20 support / web wallet 
 
-![eth-hot-wallet ethereum wallet preview](https://paullaux.github.io/eth-hot-wallet/docs/images/eth-hot-wallet-ethereum.PNG)
+This is a development/wallet tool for ethereum originally created by [Paul Laux](https://github.com/paullaux) ([Twitter](https://twitter.com/dr_laux)). Our version is hosted live on heroku [here](https://mouseweb-eth-wallet.herokuapp.com/).
 
-https://eth-hot-wallet.com
-
-#### Work in progress
-
-##### Created by Paul Laux, [@dr_laux](https://twitter.com/dr_laux) for announcements
-
-### Core components
-
-- [ ] [LightWallet V3](https://github.com/ConsenSys/eth-lightwallet) 
-- [ ] [Web3.js](https://github.com/ethereum/web3.js/) Ethereum JavaScript API
-- [ ] [React-boilerplate](https://github.com/react-boilerplate/react-boilerplate) as a wrapper of React JS, Redux, Saga, Reselect, ImmutableJS and more
-- [ ] [Ant Design](https://github.com/ant-design/ant-design) React js components
-- [ ] [Webpack 3](https://github.com/webpack/webpack) - A bundler for javascript and friends.
-- [ ] Many others, See [package.json](https://github.com/PaulLaux/eth-hot-wallet/blob/master/package.json)
-
+[His version](https://github.com/PaulLaux/eth-hot-wallet) is hosted at https://eth-hot-wallet.com. No Rest Labs used this as a development utility and expanded on some security features, dynamically adding contract hashes, and integrating/testing their block explorer.
 
 ### API Providers
 
-- [ ] [Infura.io](https://infura.io/) as JsonRPC provider
-- [ ] [Coinmarketcap](https://coinmarketcap.com/) as exchange rates provider
-
-
-### Features
-
-- [x] Encryption keys generated from seed and stored in the browser.
-- [x] Network selector including local and remote rpc 
-- [x] Eth balance auto converted to btc/usd/euro.
-- [x] Responsive design for mobile support.
+- [Infura.io](https://infura.io/) as JsonRPC provider
+- [Coinmarketcap](https://coinmarketcap.com/) as exchange rates provider
+- [MouseXplore](https://mousexplore.mousebelt.com) as a block explorer provider
 
 
 #### ERC20 wallet and native token support
@@ -47,39 +26,6 @@ import { erc20Abi } from 'utils/contracts/abi';
 ```
 
 
-
-
-### Todo
-
-- [x] ERC20 native token support
-- [x] Local storage
-- [ ] Tests
-- [ ] Event log
-- [ ] CI for development and production
-- [ ] External security audit
-- [ ] Upgrade to react 16
-- [ ] Upgrade Enzyme 3
-
-
-### Development
-
-4 Major containers were created:
-
-- Homepage container - all the actions related to keystore, including manipulation and usage.
-
-- Header container - all the activities related to network communication / web3 API.
-
-- SendTo container - state and actions related to sendTo modal, actual checks and sending is happening in header container.
-
-![eth-hot-wallet send token preview](https://paullaux.github.io/eth-hot-wallet/docs/images/eth-hot-wallet-sendToken.jpg)
-
-
-- TokenChooser container - allows the user to select which erc20 token will be used from a pre-defined list. The list of supported tokens can be found in `app/containers/TokenChooser/token-lists.js`. Each network requires a different list.
-
-![eth-hot-wallet erc20 token chooser preview](https://paullaux.github.io/eth-hot-wallet/docs/images/eth-hot-wallet-erc20-tokenChooser.jpg)
-
-
-
 #### npm scripts for eth-hot wallet:
 
 `npm run build:dll` to build webpack DLL required for development.
@@ -91,12 +37,6 @@ import { erc20Abi } from 'utils/contracts/abi';
 `npm run generate` to create new components / containers using the generator.
 
 For more documentation regarding the react setup see [react-boiledplate docs](https://eth-hot-wallet.com/docs/react-boilerplate/) here or in the official repo.
-
-
-After build, webpack monitor will generate stats about bundle size:
-
-
-![eth-hot-wallet webpack-monitor](https://paullaux.github.io/eth-hot-wallet/docs/images/webpack-monitor.JPG)
 
 ## License
 
