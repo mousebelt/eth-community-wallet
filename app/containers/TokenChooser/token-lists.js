@@ -4,12 +4,12 @@ export const TokenSelection = {
   'Local RPC': [],
   'Ropsten Testnet': [
     {
-      symbol: 'symb',
-      name: 'Hot Symbol',
-      contractAddress: '0x0a460180ec4fd3d5eb9dca8f84e8ca45b2ad9160',
+      symbol: 'pr0n',
+      name: 'pron',
+      contractAddress: '0x779880dc3aaf6bb7f098800981790fa9be715433',
       decimals: 18,
-      description: 'The most distributed token ever',
-      url: 'https://eth-hot-wallet.com',
+      description: 'Pr0n Token -- Powering Stroken Tokens',
+      url: 'https://strokentokens.com',
     },
     {
       symbol: 'rtt',

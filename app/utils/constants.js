@@ -39,8 +39,8 @@ export const localStorageTokenList = 'tokenList';
 export const localStorageChosenTokens = 'chosenTokens';
 
 // addresses:
-export const website = 'https://eth-hot-wallet.com';
-export const github = 'https://github.com/PaulLaux/eth-hot-wallet';
+export const website = 'https://norestlabs.com';
+export const github = 'https://github.com/norestlabs/eth-community-wallet';
 
 // APIs:
 // export const checkFaucetAddress = 'http://localhost:3000/status';
