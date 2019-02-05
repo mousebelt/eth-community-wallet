@@ -29,21 +29,13 @@ function PageFooter() {
   return (
     <Footer>
       <Row>
-        <Col sm={12} xs={24}>
+        <Col sm={24} xs={24}>
           {'ETH Hot Wallet - '}
           <a href={github} target="_blank" rel="noopener">
             Ethereum and ERC20 open source wallet (Github)
           </a><br />
           Created using: eth-lightwallet, React.js, Ant design...
         </Col>
-
-        <Span>
-          <Col sm={12} xs={24}>
-            Donate for development: (ETH/ERC20)<br />
-            0x97325941fafde5a182e6f7e5475a592ac615a3f2
-            </Col>
-        </Span>
-
       </Row>
     </Footer>
   );
